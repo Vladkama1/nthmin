@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class FileProcessingService {
@@ -19,9 +19,10 @@ public class FileProcessingService {
     public int findNthMinNumber(String filePath, int n) throws IOException {
         if (n <= 0) {
             throw new IllegalArgumentException("N должно быть положительным числом");
+            //можно сделать кастомное исключение
         }
 
-        List<Integer> numbers = readNumbersFromExcel(filePath);
+        Set<Integer> numbers = readNumbersFromExcel(filePath);
 
         if (numbers.isEmpty()) {
             throw new IllegalArgumentException("Файл не содержит чисел");
@@ -34,8 +35,8 @@ public class FileProcessingService {
         return MinHeapFinder.findNthMin(numbers, n);
     }
 
-    private List<Integer> readNumbersFromExcel(String filePath) throws IOException {
-        List<Integer> numbers = new ArrayList<>();
+    private Set<Integer> readNumbersFromExcel(String filePath) throws IOException {
+        Set<Integer> numbers = new HashSet<>();
 
         try (FileInputStream file = new FileInputStream(filePath);
              Workbook workbook = new XSSFWorkbook(file)) {
@@ -49,7 +50,6 @@ public class FileProcessingService {
                 }
             }
         }
-
         return numbers;
     }
 }

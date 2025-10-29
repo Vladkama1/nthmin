@@ -1,10 +1,13 @@
 package com.example.nthmin;
 
-import java.util.List;
+import java.util.Set;
 
-public class MinHeapFinder {
+public final class MinHeapFinder {
+    // сделать MinHeapFinder финальным и запретить создавать экземпляры класса
+    private MinHeapFinder() {
+    }
 
-    public static int findNthMin(List<Integer> numbers, int n) {
+    public static int findNthMin(Set<Integer> numbers, int n) {
         if (n == 1) {
             return numbers.stream().min(Integer::compareTo).get();
         }
